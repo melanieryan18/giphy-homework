@@ -1,5 +1,5 @@
 
-$("button").on("click", function () {
+$("button").on("click", function findGifs() {
     // creating a variable to plug new data-animal
     var topics = $(this).attr("data-topics");
     // , "cow", "pengiun", "sloth", "capybara", "hummingbird", "hawk", "armadillo", "naked mole rat", "dolphin", "lemur", 
@@ -23,28 +23,39 @@ $("button").on("click", function () {
             img.attr("data-state", "still");
             $("#animal-gifs").append(img);
         }
+        $(document).on("click", ".gif-image", function (e) {
+            // e.preventDefault();
+            var state = $(this).attr("data-state");
+            var animateUrl = $(this).attr("data-animate");
+            var stillUrl = $(this).attr("data-still");
+            if (state === "still") {
+                $(this).attr("src", animateUrl);
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", stillUrl);
+                $(this).attr("data-state", "still");
+            }
+        });
+
+
+
+
+        // $(document).on("click", ".gif-button", function (e) {
+        //     e.preventDefault();
+        //     var btnValue = $(this).attr("data-name");
+        //     // callAPI(btnValue);
+        // });
+
+
+        $("#animal-button").on("click", function () {
+            console.log(("#animal-button").val());
+            var creature = $("#animal-input").val().trim();
+            topics.push(creature);
+            a.text(topics);
+            // Adding the button to the buttons-view div
+            $("#animal-gifs").append(a);
+
+        });
     });
-
-$(document).on("click", ".gif-image", function (e) {
-        e.preventDefault();
-        var state = $(this).attr("data-state");
-        var animateUrl = $(this).attr("data-animate");
-        var stillUrl = $(this).attr("data-still");
-        if (state === "still") {
-            $(this).attr("src", animateUrl);
-            $(this).attr("data-state", "animate");
-        } else {
-            $(this).attr("src", stillUrl);
-            $(this).attr("data-state", "still");
-        }
-    });
-
-
-$(document).on("click", ".gif-button", function (e) {
-    e.preventDefault();
-    var btnValue = $(this).attr("data-name");
-    // callAPI(btnValue);
-});
-
 });
 
