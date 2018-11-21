@@ -1,68 +1,62 @@
 
+$("button").on("click", function () {
+    // creating a variable to plug new data-animal
+    var topics = ["dog", "cat", "trash panda", "koala", "cow", "pengiun", "sloth", "capybara", "hummingbird", "hawk", "armadillo", "naked mole rat", "dolphin", "lemur", "quokka"]
 
-var topics = ["dog", "cat", "trash panda", "koala", "cow", "horse", "pengiun", "sloth", "capybara", "hummingbird", "hawk", "armadillo", "naked mole rat", "dolphin", "lemur", "quokka"]
-// creating a variable to plug new data-animal
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        topics + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    topics + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    // Event listener for all button elements
-    $("#add-animal").on("click", function () {
-        // In this case, the "this" keyword refers to the button that was clicked
-
-        // Looping over every result item
-        for (var i = 0; i < 11; i++) {
-            // Only taking action if the photo has an appropriate rating
-            // Create a div for the gif
-            var gifDiv = $("<div>");
-            // Storing the result item's rating
-            var rating = results[i].rating;
-            // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + rating);
-            // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-            $("#gifs-appear-here").prepend(gifDiv);
-
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        var imagesArr = response.data;
+        $("#animal-gifs").empty();
+        // take all the fixed_height images from the response 
+        // and display on the page
+        for (var i = 0; i < imagesArr.length; i++) {
+            var img = $("<img>");
+            img.addClass("gif-image");
+            img.attr("src", imagesArr[i].images.fixed_height_still.url);
+            img.attr("data-still", imagesArr[i].images.fixed_height_still.url);
+            img.attr("data-animate", imagesArr[i].images.fixed_height.url);
+            img.attr("data-state", "still");
+            $("#animal-gifs").append(img);
         }
-        $(".gif").on("click", function () {
-            // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-            var state = $(this).attr("data-state");
-            // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-            // Then, set the image's data-state to animate
-            // Else set src to the data-still value
-            if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-            } else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-            }
-        });
     });
+
+
+// when I click on one 
+// of the gifs it will go from still to animate 
+// and from animate to still
+$(document).on("click", ".gif-image", function (e) {
+        e.preventDefault();
+        var state = $(this).attr("data-state");
+        var animateUrl = $(this).attr("data-animate");
+        var stillUrl = $(this).attr("data-still");
+        if (state === "still") {
+            // lets animate the img
+            // switch the src attribute to the value of data-animate
+            $(this).attr("src", animateUrl);
+            // set the data-state value to "animate"
+            $(this).attr("data-state", "animate");
+            // play the cat sound
+            catSound.play();
+        } else {
+            // lets make it still
+            // switch the src attribute to the value of data-still
+            $(this).attr("src", stillUrl);
+            // set the data-state value to "still"
+            $(this).attr("data-state", "still");
+        }
+    });
+
+
+$(document).on("click", ".gif-button", function (e) {
+    e.preventDefault();
+    var btnValue = $(this).attr("data-name");
+    callAPI(btnValue);
 });
 
+});
 
-})
-
-
-
-// 2. Your app should take the topics in this array and create buttons in your HTML.
-// * Try using a loop that appends a button for each string in the array.
-
-// 3. When the user clicks on a button, the page should grab 10 static, non - animated gif images from the GIPHY API and place them on the page.
-
-// 4. When the user clicks one of the still GIPHY images, the gif should animate.If the user clicks the gif again, it should stop playing.
-
-// 5. Under every gif, display its rating(PG, G, so on).
-// * This data is provided by the GIPHY API.
-// * Only once you get images displaying with button presses should you move on to the next step.
-
-// 6. Add a form to your page takes the value from a user input box and adds it into your`topics` array.Then make a function call that takes each topic in the array remakes the buttons on the page.
-
-// 7. Deploy your assignment to Github Pages.
-
-// 8. ** Rejoice ** !You just made something really cool.

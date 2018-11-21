@@ -20,21 +20,25 @@
 
     <div class="container">
         <h1>Animal Search!</h1>
-
-        <!-- Rendered Buttons will get Dumped Here  -->
-        <div id="buttons-view"></div>
+        <button data-topics="dog">dog</button>
+        <button data-topics="cat">cat</button> 
+        <button data-topics="trash panda">trash panda</button> 
+        <button data-topics="koala">koala</button> 
+        <button data-topics="cow"> cow</button>
 
         <form id="gif-form">
-            <label for="animals-input">wut animalz wud u like human</label>
+            <label id="animals-input">wut animalz wud u like human</label>
             <input type="text" id="animals-input">
             <br>
-
             <!-- Button triggers new movie to be added -->
             <input id="add-animal" type="submit" value="add a creature">
         </form>
 
         <!-- Movies will Get Dumped Here -->
-        <div id="animals-view"></div>
+        <div id="animal-gifs"></div>
+
+        <script src="assets/javascript/app.js"></script>
+
 
 
 </body>
