@@ -1,8 +1,8 @@
 
 $("button").on("click", function () {
     // creating a variable to plug new data-animal
-    var topics = ["dog", "cat", "trash panda", "koala", "cow", "pengiun", "sloth", "capybara", "hummingbird", "hawk", "armadillo", "naked mole rat", "dolphin", "lemur", "quokka"]
-
+    var topics = $(this).attr("data-topics");
+    // , "cow", "pengiun", "sloth", "capybara", "hummingbird", "hawk", "armadillo", "naked mole rat", "dolphin", "lemur", 
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         topics + "&api_key=dc6zaTOxFJmzC&limit=10";
 
@@ -25,28 +25,16 @@ $("button").on("click", function () {
         }
     });
 
-
-// when I click on one 
-// of the gifs it will go from still to animate 
-// and from animate to still
 $(document).on("click", ".gif-image", function (e) {
         e.preventDefault();
         var state = $(this).attr("data-state");
         var animateUrl = $(this).attr("data-animate");
         var stillUrl = $(this).attr("data-still");
         if (state === "still") {
-            // lets animate the img
-            // switch the src attribute to the value of data-animate
             $(this).attr("src", animateUrl);
-            // set the data-state value to "animate"
             $(this).attr("data-state", "animate");
-            // play the cat sound
-            catSound.play();
         } else {
-            // lets make it still
-            // switch the src attribute to the value of data-still
             $(this).attr("src", stillUrl);
-            // set the data-state value to "still"
             $(this).attr("data-state", "still");
         }
     });
@@ -55,7 +43,7 @@ $(document).on("click", ".gif-image", function (e) {
 $(document).on("click", ".gif-button", function (e) {
     e.preventDefault();
     var btnValue = $(this).attr("data-name");
-    callAPI(btnValue);
+    // callAPI(btnValue);
 });
 
 });
