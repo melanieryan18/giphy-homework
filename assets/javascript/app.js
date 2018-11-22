@@ -11,7 +11,8 @@ $(document).on("click", "button", function findGifs() {
         method: "GET"
     }).then(function (response) {
         var animalGifs = response.data;
-        var rating = response.rating;
+        // create variable to put rating in - tried var p = $('<p>').html('Rating: ' + rating);
+
         $("#animal-gifs").empty();
         for (var i = 0; i < animalGifs.length; i++) {
             var img = $("<img>");
@@ -21,7 +22,13 @@ $(document).on("click", "button", function findGifs() {
             img.attr("data-animate", animalGifs[i].images.fixed_height.url);
             img.attr("data-state", "still");
             $("#animal-gifs").append(img);
-            $("#button data-topics").append(rating)
+            var rating = animalGifs[i].rating;
+            // append rating to animalGifs
+            var p = $('<p>').html('Rating: ' + rating);
+            console.log(rating)
+            img.append(p);
+
+
 
         }
 
@@ -42,6 +49,7 @@ $(document).on("click", ".gif-image", function () {
         $(this).attr("data-state", "still");
 
     }
+    
 });
 
 
@@ -52,6 +60,6 @@ $("#submit-button").on("click", function (event) {
     // topics.push(creature);
     // a.text(topics);
     // Adding the button to the buttons-view div
-    $("#animal-container").append('<button data-topics="' + creature +'">' + creature +'</button>');
+    $("#animal-container").append('<button data-topics="' + creature + '">' + creature + '</button>');
 
 });
