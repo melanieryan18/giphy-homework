@@ -23,10 +23,10 @@ $(document).on("click", "button", function findGifs() {
             img.attr("data-state", "still");
             $("#animal-gifs").append(img);
             var rating = animalGifs[i].rating;
-            // append rating to animalGifs
-            var p = $('<p>').html('Rating: ' + rating);
+            // // append rating to animalGifs
+            // var p = $('<p>').html('Rating: ' + rating);
             console.log(rating)
-            img.append(p);
+            // img.append(p);
 
 
 
@@ -55,7 +55,6 @@ $(document).on("click", ".gif-image", function () {
 
 $("#submit-button").on("click", function (event) {
     event.preventDefault();
-    // console.log(("#new-input").val());
     var creature = $("#new-input").val().trim();
     // topics.push(creature);
     // a.text(topics);
